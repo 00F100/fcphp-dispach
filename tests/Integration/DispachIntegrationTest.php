@@ -10,7 +10,7 @@ class DispachIntegrationTest extends TestCase
     public function setUp()
     {
         $this->di = DiFacade::getInstance();
-        $this->di->set('action', 'TestMock');
+        $this->di->set('action', 'TestMockIntegration');
 
         $this->instance = new Dispach($this->di);
     }
@@ -49,7 +49,7 @@ class DispachIntegrationTest extends TestCase
     public function testDispachMethodNotFoundException()
     {
         $di = DiFacade::getInstance();
-        $di->set('action', 'TestMock');
+        $di->set('action', 'TestMockIntegration');
         $instance = new Dispach($di);
         $instance->dispach('action@methodtest', ['param' => 'value']);
     }
@@ -57,7 +57,7 @@ class DispachIntegrationTest extends TestCase
     public function testDispachCallback()
     {
         $di = DiFacade::getInstance();
-        $di->set('action', 'TestMock');
+        $di->set('action', 'TestMockIntegration');
 
         $instance = new Dispach($di);
         $instance->callback('dispachCallback', function(array $action, array $params) {
@@ -75,21 +75,21 @@ class DispachIntegrationTest extends TestCase
             $this->assertEquals($controller, 'action');
             $this->assertEquals($method, 'method');
             $this->assertEquals($params, ['param' => 'value']);
-            $this->assertInstanceOf(TestMock::class, $instance);
+            $this->assertInstanceOf(TestMockIntegration::class, $instance);
         });
         $instance->callback('dispachMethodCallback', function(array $action, string $controller, string $method, array $params, $instance, $result) {
             $this->assertEquals($action, ['action', 'method']);
             $this->assertEquals($controller, 'action');
             $this->assertEquals($method, 'method');
             $this->assertEquals($params, ['param' => 'value']);
-            $this->assertInstanceOf(TestMock::class, $instance);
+            $this->assertInstanceOf(TestMockIntegration::class, $instance);
             $this->assertEquals($result, ['value']);
         });
         $instance->dispach('action@method', ['param' => 'value']);
     }
 }
 
-class TestMock
+class TestMockIntegration
 {
     public function method()
     {
