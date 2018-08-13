@@ -4,8 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c5887468e87eedd16668d670b86922a",
+    "content-hash": "0cd017fff335991b67b857462c8bbb65",
     "packages": [
+        {
+            "name": "00f100/fcphp-controller",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/00F100/fcphp-controller.git",
+                "reference": "5211fd11e292afc9c501a0b9f41058a031d90a6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/00F100/fcphp-controller/zipball/5211fd11e292afc9c501a0b9f41058a031d90a6e",
+                "reference": "5211fd11e292afc9c501a0b9f41058a031d90a6e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "00f100/phpdbug": "*",
+                "phpunit/phpunit": "6.*"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "FcPhp\\Controller\\": "src/",
+                    "FcPhp\\Controller\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "João Moraes",
+                    "email": "joaomoraesbr@gmail.com",
+                    "homepage": "https://github.com/00f100"
+                }
+            ],
+            "description": "Abstract class Controller to FcPhp",
+            "homepage": "https://github.com/00f100/fcphp-controller",
+            "keywords": [
+                "PHP7",
+                "abstract",
+                "controller",
+                "fcphp"
+            ],
+            "time": "2018-08-13T01:53:50+00:00"
+        },
         {
             "name": "00f100/fcphp-di",
             "version": "0.3.1",

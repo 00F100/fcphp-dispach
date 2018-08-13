@@ -5,6 +5,7 @@ use FcPhp\Dispach\Dispach;
 use FcPhp\Dispach\Interfaces\IDispach;
 use FcPhp\Di\Facades\DiFacade;
 use FcPhp\Dispach\Facades\DispachFacade;
+use FcPhp\Controller\Controller;
 
 class DispachIntegrationTest extends TestCase
 {
@@ -87,9 +88,28 @@ class DispachIntegrationTest extends TestCase
         });
         $instance->dispach('action@method', ['param' => 'value']);
     }
+
+    /**
+     * @expectedException FcPhp\Dispach\Exceptions\ControllerNotValidException
+     */
+    public function testControllerNotValidException()
+    {
+        $di = DiFacade::getInstance();
+        $di->set('actionNonController', 'TestMockIntegrationNonController');
+        $instance = new Dispach($di);
+        $instance->dispach('actionNonController@method', ['param' => 'value']);
+    }
 }
 
-class TestMockIntegration
+class TestMockIntegration extends Controller
+{
+    public function method()
+    {
+        return func_get_args();
+    }
+}
+
+class TestMockIntegrationNonController
 {
     public function method()
     {

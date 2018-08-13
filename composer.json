@@ -14,7 +14,8 @@
     ],
     "require": {
         "php": ">=7.2",
-        "00f100/fcphp-di": "*"
+        "00f100/fcphp-di": "*",
+        "00f100/fcphp-controller": "*"
     },
     "require-dev": {
         "00f100/phpdbug": "*",

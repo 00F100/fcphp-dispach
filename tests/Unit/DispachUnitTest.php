@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use FcPhp\Dispach\Dispach;
 use FcPhp\Dispach\Interfaces\IDispach;
+use FcPhp\Controller\Controller;
 
 class DispachUnitTest extends TestCase
 {
@@ -114,9 +115,36 @@ class DispachUnitTest extends TestCase
         });
         $instance->dispach('action@method', ['param' => 'value']);
     }
+
+    /**
+     * @expectedException FcPhp\Dispach\Exceptions\ControllerNotValidException
+     */
+    public function testControllerNotValidException()
+    {
+        $mock = new TestMockNonController();
+        $di = $this->createMock('FcPhp\Di\Interfaces\IDi');
+        $di
+            ->expects($this->any())
+            ->method('has')
+            ->will($this->returnValue(true));
+        $di
+            ->expects($this->any())
+            ->method('make')
+            ->will($this->returnValue($mock));
+        $instance = new Dispach($di);
+        $instance->dispach('action@methodtest', ['param' => 'value']);
+    }
 }
 
-class TestMock
+class TestMock extends Controller
+{
+    public function method()
+    {
+        return func_get_args();
+    }
+}
+
+class TestMockNonController
 {
     public function method()
     {

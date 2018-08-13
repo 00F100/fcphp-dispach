@@ -4,6 +4,8 @@ namespace FcPhp\Dispach
 {
     use FcPhp\Di\Interfaces\IDi;
     use FcPhp\Dispach\Interfaces\IDispach;
+    use FcPhp\Controller\Interfaces\IController;
+    use FcPhp\Dispach\Exceptions\ControllerNotValidException;
     use FcPhp\Dispach\Exceptions\DispachMethodNotFoundException;
     use FcPhp\Dispach\Exceptions\DispachControllerNotFoundException;
     use FcPhp\Dispach\Exceptions\DispachConfigurationErrorException;
@@ -66,13 +68,16 @@ namespace FcPhp\Dispach
                 $this->dispachConfigurationCallback($action, $controller, $method, $params);
                 if($this->di->has($controller)) {
                     $instance = $this->di->make($controller);
-                    $this->dispachControllerCallback($action, $controller, $method, $params, $instance);
-                    if(method_exists($instance, $method)) {
-                        $result = call_user_func_array([$instance, $method], $params);
-                        $this->dispachMethodCallback($action, $controller, $method, $params, $instance, $result);
-                        return $result;
+                    if($instance instanceof IController) {
+                        $this->dispachControllerCallback($action, $controller, $method, $params, $instance);
+                        if(method_exists($instance, $method)) {
+                            $result = call_user_func_array([$instance, $method], $params);
+                            $this->dispachMethodCallback($action, $controller, $method, $params, $instance, $result);
+                            return $result;
+                        }
+                        throw new DispachMethodNotFoundException();
                     }
-                    throw new DispachMethodNotFoundException();
+                    throw new ControllerNotValidException();
                 }
                 throw new DispachControllerNotFoundException();
             }
