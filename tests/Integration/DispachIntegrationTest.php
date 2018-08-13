@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 use FcPhp\Dispach\Dispach;
 use FcPhp\Dispach\Interfaces\IDispach;
 use FcPhp\Di\Facades\DiFacade;
+use FcPhp\Dispach\Facades\DispachFacade;
 
 class DispachIntegrationTest extends TestCase
 {
@@ -12,7 +13,7 @@ class DispachIntegrationTest extends TestCase
         $this->di = DiFacade::getInstance();
         $this->di->set('action', 'TestMockIntegration');
 
-        $this->instance = new Dispach($this->di);
+        $this->instance = DispachFacade::getInstance();
     }
 
     public function testInstance()
@@ -38,8 +39,7 @@ class DispachIntegrationTest extends TestCase
      */
     public function testDispachControllerNotFoundException()
     {
-        $di = DiFacade::getInstance();
-        $instance = new Dispach($di);
+        $instance = DispachFacade::getInstance();
         $instance->dispach('actiontest@method', ['param' => 'value']);
     }
 
