@@ -29,9 +29,10 @@ or add in composer.json
 ```php
 
 use FcPhp\Di\Facades\DiFacade;
+use FcPhp\Controller\Controller;
 
 // Class example ...
-class ExampleController
+class ExampleController extends Controller
 {
     public function findAll($foo, $bar)
     {
